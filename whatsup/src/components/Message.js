@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const MessageContainer = styled.div`
   display: flex;
@@ -8,9 +8,8 @@ const MessageContainer = styled.div`
 `;
 
 const MessageBox = styled.div`
-
   position: relative;
-  word-wrap:break-word;
+  word-wrap: break-word;
   max-width: 40%;
   height: 100%;
   padding: 10px 15px;
@@ -19,19 +18,19 @@ const MessageBox = styled.div`
   line-height: 1;
   text-align: ${(props) => props.posicao};
   align-self: ${(props) => {
-    if (props.posicao === "direita") {
-      return "flex-end";
+    if (props.posicao === 'direita') {
+      return 'flex-end';
     } else {
-      return "flex-start";
+      return 'flex-start';
     }
   }};
   display: flex;
   flex-direction: column;
   background-color: ${(props) => {
-    if (props.posicao === "direita") {
-      return "#dcf8c6";
+    if (props.posicao === 'direita') {
+      return '#dcf8c6';
     } else {
-      return "#ffffff";
+      return '#ffffff';
     }
   }};
   box-shadow: 0 3px 3px 0px rgba(0, 0, 0, 5);
@@ -40,7 +39,7 @@ const MessageBox = styled.div`
 const UsernameContainer = styled.div`
   margin-bottom: 10px;
   font-weight: bold;
-  color: #9AAC8C;
+  color: #9aac8c;
   font-size: 0.8em;
 `;
 
@@ -50,7 +49,7 @@ export class Message extends React.Component {
   }
 
   onDoubleClick = () => {
-    if (window.confirm("Deseja deletar essa mensagem?")) {
+    if (window.confirm('Deseja deletar essa mensagem?')) {
       this.props.deleteMessage(this.props.message);
     }
   };
@@ -59,20 +58,22 @@ export class Message extends React.Component {
     let posicao;
     let username;
 
-    if (this.props.message.user === "eu" || this.props.message.user === "me") {
-      posicao = "direita";
-    } else {
-      posicao = "esquerda";
+    if (this.props.message.user !== 'Bot') {
+      posicao = 'esquerda';
       username = (
         <UsernameContainer>{this.props.message.user}</UsernameContainer>
       );
-    }
+    } 
 
     return (
       <MessageContainer onDoubleClick={this.onDoubleClick}>
         <MessageBox posicao={posicao}>
           {username}
           {this.props.message.text}
+        </MessageBox>
+        <MessageBox posicao="direita">
+          {<UsernameContainer>Bot</UsernameContainer>}
+          {'Olá, tudo bem?, Eu sou um bot.'}
         </MessageBox>
       </MessageContainer>
     );
